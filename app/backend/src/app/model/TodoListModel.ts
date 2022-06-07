@@ -1,5 +1,5 @@
 import TodoListDAO from '../../database/todoListDAO';
-import { TodoList } from '../../interfaces/TodoList';
+import { TodoList, TodoListUpdate } from '../../interfaces/TodoList';
 
 class TodoListModel {
   private todoList;
@@ -16,7 +16,18 @@ class TodoListModel {
     const result = await this.todoList.model.create({...body});
     return result;
   }
-  
+
+  async update(id:string , body: TodoListUpdate): Promise<TodoList> {
+    const _id = id;
+    const result = await this.todoList.model.findOneAndUpdate({ _id }, { ...body }, {new: true});
+    return result as any as TodoList;
+  }
+
+  async delete(id:string): Promise<TodoList> {
+    const _id = id;
+    const result = await this.todoList.model.findOneAndDelete({ _id });
+    return result as any;
+  } 
 }
 
 export default TodoListModel;
