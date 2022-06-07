@@ -1,4 +1,4 @@
-import { TodoList } from '../../interfaces/TodoList';
+import { TodoList, TodoListUpdate} from '../../interfaces/TodoList';
 import TodoListModel from '../model/TodoListModel';
 
 class TodoListServices {
@@ -9,6 +9,14 @@ class TodoListServices {
   }
   async create(body:TodoList): Promise<TodoList> {
     const result = await this.model.create(body);
+    return result;
+  }
+  async update(id: string , body:TodoListUpdate): Promise<TodoList> {
+    const result = await this.model.update(id , body);
+    return result;
+  }
+  async delete(id: string): Promise<TodoList> {
+    const result = await this.model.delete(id);
     return result;
   }
 }
